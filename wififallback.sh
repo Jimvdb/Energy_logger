@@ -15,3 +15,7 @@ else
     nmcli con down "$AP_NAME" 2>/dev/null
     nmcli con up "$WIFI_NAME"
 fi
+
+# automatisch laten werken
+# Crontab -e
+# */1 * * * * /home/pi/wifi_fallback.sh
