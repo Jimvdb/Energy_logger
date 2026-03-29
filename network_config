@@ -1,0 +1,42 @@
+Netwerk ontdekken
+
+Raspberry op IP adres 192.168.10.2
+
+nmcli con show
+
+netwerk eth0 van dhcp naar fix
+
+sudo nmcli con down "Wired connection 1"
+
+sudo nmcli con delete "Wired connection 1"
+
+sudo nmcli con add type ethernet ifname eth0 con-name em24
+ipv4.addresses 192.168.10.2/24
+ipv4.method manual
+
+default afzetten
+
+sudo nmcli con modify em24 ipv4.never-default yes
+
+connectie up
+
+sudo nmcli con up em24
+
+
+AP point opzetten naast huidige WIFI
+
+sudo nmcli con add type wifi ifname wlan0 con-name logger-ap autoconnect no ssid LoggerPi
+
+sudo nmcli con modify logger-ap 802-11-wireless.mode ap
+sudo nmcli con modify logger-ap 802-11-wireless.band bg
+sudo nmcli con modify logger-ap wifi-sec.key-mgmt wpa-psk
+sudo nmcli con modify logger-ap wifi-sec.psk "Logger1234"
+
+sudo nmcli con modify logger-ap ipv4.method shared
+
+Wisselen netwerk:
+
+sudo nmcli con up logger-ap
+
+sudo nmcli con up preconfigured
+
